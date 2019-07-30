@@ -1,0 +1,22 @@
+version: "2"
+
+services:
+  web:
+    image: server-alive:2
+    build: .
+    ports:
+      - 3001:3001
+    restart: always
+    networks:
+      - web
+    container_name: server-alive
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:alive.ballfish.io"
+      - "traefik.basic.port=3001"
+      - "traefik.basic.protocol=http"
+
+networks:
+  web:
+    external: true
